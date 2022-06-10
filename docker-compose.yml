@@ -1,19 +1,21 @@
 version: '3.8'
 services:
   spring-native:
-    build:
-      context: ./
-      dockerfile: Dockerfile-native
+    image: ghcr.io/swissbuechi/spring-native-demo:main-native
+    #    build:
+    #      context: ./
+    #      dockerfile: Dockerfile-native
     container_name: spring-native
     environment:
       - test.name=peter
     ports:
-      - 8080:8080
+      - "8080:8080"
   spring-native-jre:
-    build:
-      context: ./
+    image: ghcr.io/swissbuechi/spring-native-demo:main
+    #    build:
+    #      context: ./
     container_name: spring-native-jre
     environment:
       - test.name=peter
     ports:
-      - 8081:8080
+      - "8081:8080"
