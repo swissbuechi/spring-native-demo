@@ -10,7 +10,6 @@ RUN mvn --version
 RUN rm -rf src/main/resources/application.properties
 RUN mvn -Pnative package -DskipTests=true
 
-#FROM alpine
 FROM oraclelinux:8-slim
 LABEL maintainer="github.com/swissbuechi"
 ENV TZ=Europe/Zurich

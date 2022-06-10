@@ -1,5 +1,4 @@
 FROM maven:3-openjdk-17-slim as build
-LABEL maintainer="github.com/swissbuechi"
 ADD . /app
 WORKDIR /app
 RUN rm -rf src/main/resources/application.properties
