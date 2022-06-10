@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  spring-native:
+    build:
+      context: ./
+    container_name: spring-native
+    environment:
+      - test.name=peter
+    ports:
+      - 8080:8080
