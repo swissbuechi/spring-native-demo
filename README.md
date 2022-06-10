@@ -16,14 +16,14 @@ Dockerfile best practices:
 
 - Minimal packages
 - Separate user
-- Fixed version
-- Healthcheck
+- Fixed versions
+- Healthchecks
 
 ### JRE based image
 
 `ghcr.io/swissbuechi/spring-native-demo:main`
 
-Build with `eclipse-temurin` JVM to minimize ram usage
+Build with `eclipse-temurin` JVM to minimize RAM usage
 
 ### Spring Native based image
 
@@ -39,7 +39,7 @@ Build with `eclipse-temurin` JVM to minimize ram usage
 ### Steps
 
 1. Copy `docker-compose.yml` file
-2. run `docker-compose up -d`
+2. Run `docker-compose up -d`
 
 ### Test
 
