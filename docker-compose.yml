@@ -3,8 +3,17 @@ services:
   spring-native:
     build:
       context: ./
+      dockerfile: Dockerfile-native
     container_name: spring-native
     environment:
       - test.name=peter
     ports:
       - 8080:8080
+  spring-native-jre:
+    build:
+      context: ./
+    container_name: spring-native-jre
+    environment:
+      - test.name=peter
+    ports:
+      - 8081:8080

@@ -1,26 +1,22 @@
-FROM softinstigate/graalvm-maven as build
-
-ADD . /build
-WORKDIR /build
-
-RUN native-image --version
-RUN java --version
-RUN mvn --version
-
-RUN rm -rf src/main/resources/application.properties
-RUN mvn -Pnative package -DskipTests=true
-
-#FROM alpine
-FROM oraclelinux:8-slim
+FROM maven:3-openjdk-17-slim as build
 LABEL maintainer="github.com/swissbuechi"
+ADD . /app
+WORKDIR /app
+RUN rm -rf src/main/resources/application.properties
+RUN mvn clean package -DskipTests=true
+
+FROM eclipse-temurin:17-jre-alpine
+LABEL maintainer="github.com/swissbuechi"
+WORKDIR /app
 ENV TZ=Europe/Zurich
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-WORKDIR /app
+RUN apk --no-cache add curl
 
-RUN groupadd --gid 1000 app && adduser --uid 1000 -g app app
+RUN addgroup --gid 1000 -S app && adduser --uid 1000 -S app -G app
 RUN chown -R app:app /app
 USER app
 
-COPY --from=build /build/target/demo demo
-ENTRYPOINT [ "sh", "-c", "./demo" ]
+COPY --from=build /app/target/app.jar app.jar
+EXPOSE 8080
+ENTRYPOINT [ "java","-XX:+UseSerialGC","-Xss512k","-XX:MaxRAM=150m","-Djava.security.egd=file:/dev/./urandom", "-jar", "./app.jar" ]
