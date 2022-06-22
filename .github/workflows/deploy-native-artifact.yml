@@ -2,7 +2,7 @@ name: Generate Executables
 on:
   workflow_dispatch:
   release:
-    types: [ published ]
+    types: [published]
 permissions:
   contents: write
 jobs:
@@ -16,9 +16,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-latest, windows-2019 ]
-        graalvm-version: [ 'latest' ]
-        java-version: [ '17' ]
+        os: [ubuntu-latest, macos-latest, windows-2019]
+        graalvm-version: ['22.0.0.2']
+        java-version: ['11']
         include:
           - os: ubuntu-latest
             executable-suffix: ''
