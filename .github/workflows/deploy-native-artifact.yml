@@ -1,7 +1,5 @@
 name: Binary Artifacts native
 
-#on: [ push ]
-
 on:
   workflow_dispatch:
   release:
@@ -21,14 +19,14 @@ jobs:
             graalvm_version: latest
             asset_name: -linux-amd64
             executable-suffix: ''
-#          - os: macos-latest
-#            graalvm_version: latest
-#            asset_name: -macos-amd64
-#            executable-suffix: ''
-#          - os: windows-latest
-#            graalvm_version: dev
-#            asset_name: -windows-amd64
-#            executable-suffix: '.exe'
+          - os: macos-latest
+            graalvm_version: latest
+            asset_name: -macos-amd64
+            executable-suffix: ''
+          - os: windows-latest
+            graalvm_version: dev
+            asset_name: -windows-amd64
+            executable-suffix: '.exe'
 
     steps:
       - uses: actions/checkout@v2
@@ -51,12 +49,6 @@ jobs:
         with:
           name: demo-${{ matrix.os }}
           path: target/${{ env.APP_NAME }}${{ matrix.executable-suffix }}
-
-      - name: Upload release
-        if: github.event.release.tag_name
-        run: gh release upload ${{ github.event.release.tag_name }} target/${{ env.APP_NAME }}${{ matrix.executable-suffix }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2

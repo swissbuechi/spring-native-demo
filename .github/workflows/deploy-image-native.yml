@@ -5,7 +5,10 @@
 
 name: Docker image native
 
-on: [ push ]
+on:
+  push:
+    tags-ignore:
+      - '*'
 
 env:
   REGISTRY: ghcr.io
