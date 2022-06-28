@@ -9,9 +9,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        version: [ latest, dev, '21.3.0' ]
-        #        version: [ latest ]
-        os: [ macos-latest, ubuntu-latest ]
+        #        version: [ latest, dev, '21.3.0' ]
+        version: [ latest ]
+        #        os: [ macos-latest, ubuntu-latest ]
+        os: [ ubuntu-latest ]
     #        os: [ windows-latest ]
 
     steps:
@@ -44,10 +45,10 @@ jobs:
         #          mvn test -Pfunctional-test
         if: runner.os != 'Windows'
 
-      - name: List Directory on Ubuntu and MacOs
-        run: |
-          ls .\target
-        if: runner.os != 'Windows'
+#      - name: List Directory on Ubuntu and MacOs
+#        run: |
+#          ls target
+#        if: runner.os != 'Windows'
 
       - name: Build Native Image on Windows
         run: |
