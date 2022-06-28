@@ -7,32 +7,28 @@ on:
   release:
     types: [ published ]
 
+env:
+  APP_NAME: demo
+
 jobs:
   build:
-    name: graalvm ${{ matrix.version }} on ${{ matrix.os }}
+    name: graalvm ${{ matrix.graalvm_version }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-#        version: [ dev, latest ]
-#        os: [ windows-latest, ubuntu-latest, macos-latest ]
-#        exclude:
-#          - os: macos-latest
-#          - os: windows-latest
-#          - os: ubuntu-latest
-#          - os: windows-latest
-#            version: latest
-#          - os: macos-latest
-#            version: dev
-#          - os: ubuntu-latest
-#            version: dev
         include:
           - os: ubuntu-latest
+            graalvm_version: latest
+            asset_name: ${{ env.APP_NAME }}-linux-amd64
             executable-suffix: ''
-            version: latest
-#          - os: macos-latest
-#            executable-suffix: ''
-#          - os: windows-latest
-#            executable-suffix: '.exe'
+          - os: macos-latest
+            graalvm_version: latest
+            asset_name: ${{ env.APP_NAME }}-macos-amd64
+            executable-suffix: ''
+          - os: windows-latest
+            graalvm_version: dev
+            asset_name: ${{ env.APP_NAME }}-windows-amd64
+            executable-suffix: '.exe'
 
     steps:
       - uses: actions/checkout@v2
@@ -42,7 +38,7 @@ jobs:
 
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: ${{ matrix.version }}
+          version: ${{ matrix.graalvm_version }}
           java-version: '17'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -54,10 +50,18 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: demo-${{ matrix.os }}
-          path: target/demo${{ matrix.executable-suffix }}
+          path: target/${{ env.APP_NAME }}${{ matrix.executable-suffix }}
 
       - name: Upload release
         if: github.event.release.tag_name
-        run: gh release upload ${{ github.event.release.tag_name }} target/demo${{ matrix.executable-suffix }}
+        run: gh release upload ${{ github.event.release.tag_name }} target/${{ env.APP_NAME }}${{ matrix.executable-suffix }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/${{ env.APP_NAME }}${{ matrix.executable-suffix }}
+          asset_name: ${{ matrix.asset_name }}
+          tag: ${{ github.ref }}
