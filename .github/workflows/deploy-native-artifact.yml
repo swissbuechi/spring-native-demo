@@ -16,9 +16,9 @@ jobs:
         version: [ dev, latest ]
         os: [ windows-latest, ubuntu-latest, macos-latest ]
         exclude:
-          - os: macos-latest # remove to build macos
-          - os: windows-latest # remove to build windows
-          #          - os: ubuntu-latest # remove to build ubuntu
+          - os: macos-latest
+          - os: windows-latest
+          - os: ubuntu-latest
           - os: windows-latest
             version: latest
           - os: macos-latest
@@ -28,10 +28,10 @@ jobs:
         include:
           - os: ubuntu-latest
             executable-suffix: ''
-          - os: macos-latest
-            executable-suffix: ''
-          - os: windows-latest
-            executable-suffix: '.exe'
+#          - os: macos-latest
+#            executable-suffix: ''
+#          - os: windows-latest
+#            executable-suffix: '.exe'
 
     steps:
       - uses: actions/checkout@v2
@@ -47,8 +47,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Native Binary
-        run: |
-          mvn -Pnative package -DskipTests=true
+        run: mvn -Pnative package -DskipTests=true
 
       - name: Upload archive
         uses: actions/upload-artifact@v2
