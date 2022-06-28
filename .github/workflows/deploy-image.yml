@@ -6,9 +6,9 @@
 name: Docker image
 
 on:
-  push:
-    tags-ignore:
-      - '*'
+  workflow_dispatch:
+  release:
+    types: [ published ]
 
 env:
   REGISTRY: ghcr.io
