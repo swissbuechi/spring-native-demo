@@ -5,15 +5,14 @@ on: [ push ]
 jobs:
   build:
     name: graalvm ${{ matrix.version }} on ${{ matrix.os }}
-    #    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         #        version: [ latest, dev, '21.3.0' ]
-        version: [ latest ]
+        version: [ dev ]
         #        os: [ macos-latest, ubuntu-latest ]
-        os: [ macos-latest ]
-    #        os: [ windows-latest ]
+        #        os: [ macos-latest ]
+        os: [ windows-latest ]
 
     steps:
       - uses: actions/checkout@v2
@@ -28,47 +27,13 @@ jobs:
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      #      - uses: docker-practice/actions-setup-docker@master
-      #        if: runner.os == 'MacOS'
-      #      - name: Set up MongoDB
-      #        run: |
-      #          docker-compose up -d mongodb
-      #          sleep 10
-      #          docker ps -a
-      - name: Build Native Image on Ubuntu and MacOs
+      - name: Build Native Binary
         run: |
           mvn -Pnative package -DskipTests=true
-        #          mvn clean package -DskipTests -Pspring-native,build-native-image
-        #          ./target/com.example.demo.demoapplication
-        #          ./target/com.example.demo.demoapplication &
-        #          sleep 10
-        #          mvn test -Pfunctional-test
-        if: runner.os != 'Windows'
-
-      #      - name: List Directory on Ubuntu and MacOs
-      #        run: |
-      #          ls target
       #        if: runner.os != 'Windows'
-
-      - name: Build Native Image on Windows
-        run: |
-          mvn -Pnative package -DskipTests=true
-        #          .\target\com.example.demo.demoapplication.exe
-        #          mvn clean package -DskipTests -P "spring-native,build-native-image"
-        #          .\target\com.example.demo.demoapplication.exe &
-        #          sleep 10
-        #          mvn test -Pfunctional-test
-        if: runner.os == 'Windows'
-
-      #      - name: List Directory on Windows
-      #        run: |
-      #          dir .\target
-      #        if: runner.os == 'Windows'
 
       - name: Upload binary
         uses: actions/upload-artifact@v2
         with:
-          name: demoapplication-${{ matrix.os }}-${{ matrix.version }}
-          #          name: demoapplication-${{ matrix.os }}
-          #          path: target/com.example.demo.demoapplication*
+          name: demo-${{ matrix.os }}-${{ matrix.version }}
           path: target/demo*
