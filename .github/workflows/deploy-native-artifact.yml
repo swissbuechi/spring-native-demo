@@ -1,4 +1,4 @@
-name: build-native-image
+name: Artifacts native
 
 on: [ push ]
 
@@ -11,7 +11,8 @@ jobs:
       matrix:
         #        version: [latest, dev, '21.3.0']
         version: [ latest ]
-        os: [ macos-latest, windows-latest, ubuntu-latest ]
+        #        os: [ macos-latest, windows-latest, ubuntu-latest ]
+        os: [ windows-latest ]
 
     steps:
       - uses: actions/checkout@v2
@@ -44,8 +45,9 @@ jobs:
 
       - name: Build Native Image & Run Application and FunctionalTests on Windows
         run: |
-          mvn clean package -DskipTests -P "spring-native,build-native-image"
+          mvn -Pnative package -DskipTests=true
           .\target\com.example.demo.demoapplication.exe
+        #          mvn clean package -DskipTests -P "spring-native,build-native-image"
         #          .\target\com.example.demo.demoapplication.exe &
         #          sleep 10
         #          mvn test -Pfunctional-test

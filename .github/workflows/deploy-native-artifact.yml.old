@@ -1,4 +1,4 @@
-name: Generate Executables
+name: Artifacts native
 on:
   workflow_dispatch:
   release:
