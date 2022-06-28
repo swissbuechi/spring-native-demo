@@ -13,21 +13,22 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        version: [ dev, latest ]
-        os: [ windows-latest, ubuntu-latest, macos-latest ]
-        exclude:
-          - os: macos-latest
-          - os: windows-latest
-          - os: ubuntu-latest
-          - os: windows-latest
-            version: latest
-          - os: macos-latest
-            version: dev
-          - os: ubuntu-latest
-            version: dev
+#        version: [ dev, latest ]
+#        os: [ windows-latest, ubuntu-latest, macos-latest ]
+#        exclude:
+#          - os: macos-latest
+#          - os: windows-latest
+#          - os: ubuntu-latest
+#          - os: windows-latest
+#            version: latest
+#          - os: macos-latest
+#            version: dev
+#          - os: ubuntu-latest
+#            version: dev
         include:
           - os: ubuntu-latest
             executable-suffix: ''
+            version: latest
 #          - os: macos-latest
 #            executable-suffix: ''
 #          - os: windows-latest
