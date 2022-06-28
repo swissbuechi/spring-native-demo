@@ -19,16 +19,16 @@ jobs:
         include:
           - os: ubuntu-latest
             graalvm_version: latest
-            asset_name: ${{ env.APP_NAME }}-linux-amd64
+            asset_name: -linux-amd64
             executable-suffix: ''
-          - os: macos-latest
-            graalvm_version: latest
-            asset_name: ${{ env.APP_NAME }}-macos-amd64
-            executable-suffix: ''
-          - os: windows-latest
-            graalvm_version: dev
-            asset_name: ${{ env.APP_NAME }}-windows-amd64
-            executable-suffix: '.exe'
+#          - os: macos-latest
+#            graalvm_version: latest
+#            asset_name: -macos-amd64
+#            executable-suffix: ''
+#          - os: windows-latest
+#            graalvm_version: dev
+#            asset_name: -windows-amd64
+#            executable-suffix: '.exe'
 
     steps:
       - uses: actions/checkout@v2
@@ -63,5 +63,5 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: target/${{ env.APP_NAME }}${{ matrix.executable-suffix }}
-          asset_name: ${{ matrix.asset_name }}
+          asset_name: ${{ env.APP_NAME }}${{ matrix.asset_name }}
           tag: ${{ github.ref }}
