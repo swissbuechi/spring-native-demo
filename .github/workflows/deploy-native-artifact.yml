@@ -34,7 +34,7 @@ jobs:
       #          docker-compose up -d mongodb
       #          sleep 10
       #          docker ps -a
-      - name: Build Native Image & Run Application and FunctionalTests
+      - name: Build Native Image on Ubuntu and MacOs
         run: |
           mvn clean package -DskipTests -Pspring-native,build-native-image
           ./target/com.example.demo.demoapplication
@@ -43,14 +43,19 @@ jobs:
         #          mvn test -Pfunctional-test
         if: runner.os != 'Windows'
 
-      - name: Build Native Image & Run Application and FunctionalTests on Windows
+      - name: Build Native Image on Windows
         run: |
           mvn -Pnative package -DskipTests=true
-          .\target\com.example.demo.demoapplication.exe
+        #          .\target\com.example.demo.demoapplication.exe
         #          mvn clean package -DskipTests -P "spring-native,build-native-image"
         #          .\target\com.example.demo.demoapplication.exe &
         #          sleep 10
         #          mvn test -Pfunctional-test
+        if: runner.os == 'Windows'
+
+      - name: List Directory on Windows
+        run: |
+          dir .\target
         if: runner.os == 'Windows'
 
       - name: Upload binary
@@ -58,4 +63,5 @@ jobs:
         with:
           #          name: demoapplication-${{ matrix.os }}-${{ matrix.version }}
           name: demoapplication-${{ matrix.os }}
-          path: target/com.example.demo.demoapplication*
+#          path: target/com.example.demo.demoapplication*
+          path: target/demo*
