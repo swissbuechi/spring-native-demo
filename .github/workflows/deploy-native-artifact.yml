@@ -1,10 +1,10 @@
-name: Artifacts native
+name: Binary Artifacts native
 
 on: [ push ]
 
 jobs:
   build:
-    name: ${{ matrix.version }} on ${{ matrix.os }}
+    name: graalvm ${{ matrix.version }} on ${{ matrix.os }}
     #    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -12,7 +12,7 @@ jobs:
         #        version: [ latest, dev, '21.3.0' ]
         version: [ latest ]
         #        os: [ macos-latest, ubuntu-latest ]
-        os: [ ubuntu-latest ]
+        os: [ macos-latest ]
     #        os: [ windows-latest ]
 
     steps:
@@ -45,10 +45,10 @@ jobs:
         #          mvn test -Pfunctional-test
         if: runner.os != 'Windows'
 
-#      - name: List Directory on Ubuntu and MacOs
-#        run: |
-#          ls target
-#        if: runner.os != 'Windows'
+      #      - name: List Directory on Ubuntu and MacOs
+      #        run: |
+      #          ls target
+      #        if: runner.os != 'Windows'
 
       - name: Build Native Image on Windows
         run: |
@@ -60,10 +60,10 @@ jobs:
         #          mvn test -Pfunctional-test
         if: runner.os == 'Windows'
 
-      - name: List Directory on Windows
-        run: |
-          dir .\target
-        if: runner.os == 'Windows'
+      #      - name: List Directory on Windows
+      #        run: |
+      #          dir .\target
+      #        if: runner.os == 'Windows'
 
       - name: Upload binary
         uses: actions/upload-artifact@v2
