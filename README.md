@@ -38,8 +38,18 @@ Build with `eclipse-temurin` JVM to minimize RAM usage
 
 ### Steps
 
+#### Docker
+
 1. Copy `docker-compose.yml` file
 2. Run `docker-compose up -d`
+
+#### Binary
+
+Ubuntu
+
+1. Download Artifact
+2. chmod +x ./demo
+3. ./demo -Dspring.config.location=<path to application.properties>
 
 ### Test
 
