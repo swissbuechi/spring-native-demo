@@ -4,14 +4,14 @@ on: [ push ]
 
 jobs:
   build:
-    #    name: ${{ matrix.version }} on ${{ matrix.os }}
-    name: ${{ matrix.os }}
+    name: ${{ matrix.version }} on ${{ matrix.os }}
+    #    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         version: [ latest, dev, '21.3.0' ]
         #        version: [ latest ]
-        os: [ macos-latest, windows-latest, ubuntu-latest ]
+        os: [ macos-latest, ubuntu-latest ]
     #        os: [ windows-latest ]
 
     steps:
@@ -67,7 +67,7 @@ jobs:
       - name: Upload binary
         uses: actions/upload-artifact@v2
         with:
-          #          name: demoapplication-${{ matrix.os }}-${{ matrix.version }}
-          name: demoapplication-${{ matrix.os }}
+          name: demoapplication-${{ matrix.os }}-${{ matrix.version }}
+          #          name: demoapplication-${{ matrix.os }}
           #          path: target/com.example.demo.demoapplication*
           path: target/demo*
