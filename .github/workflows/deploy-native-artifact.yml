@@ -8,11 +8,19 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        #        version: [ latest, dev, '21.3.0' ]
-        version: [ dev ]
-        #        os: [ macos-latest, ubuntu-latest ]
-        #        os: [ macos-latest ]
-        os: [ windows-latest ]
+        version: [ dev, latest ]
+        os: [ windows-latest, ubuntu-latest, macos-latest ]
+        exclude:
+          - os: windows-latest
+            version: latest
+          - os: macos-latest
+          - os: macos-latest
+            version: dev
+          - os: ubuntu-latest
+            version: dev
+    #        include:
+    #          - os: windows-latest
+    #            binaryExtension: .exe
 
     steps:
       - uses: actions/checkout@v2
@@ -30,10 +38,17 @@ jobs:
       - name: Build Native Binary
         run: |
           mvn -Pnative package -DskipTests=true
-      #        if: runner.os != 'Windows'
 
-      - name: Upload binary
+      - name: Upload binary ubuntu / macos
         uses: actions/upload-artifact@v2
         with:
-          name: demo-${{ matrix.os }}-${{ matrix.version }}
-          path: target/demo*
+          name: demo-${{ matrix.os }}
+          path: target/demo
+          if: runner.os != 'Windows'
+
+      - name: Upload binary windows
+        uses: actions/upload-artifact@v2
+        with:
+          name: demo-${{ matrix.os }}
+          path: target/demo.exe
+          if: runner.os == 'Windows'
