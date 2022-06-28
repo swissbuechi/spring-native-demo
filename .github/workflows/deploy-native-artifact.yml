@@ -1,6 +1,11 @@
 name: Binary Artifacts native
 
-on: [ push ]
+#on: [ push ]
+
+on:
+  workflow_dispatch:
+  release:
+    types: [ published ]
 
 jobs:
   build:
@@ -11,16 +16,22 @@ jobs:
         version: [ dev, latest ]
         os: [ windows-latest, ubuntu-latest, macos-latest ]
         exclude:
+          - os: macos-latest # remove to build macos
+          - os: windows-latest # remove to build windows
+          #          - os: ubuntu-latest # remove to build ubuntu
           - os: windows-latest
             version: latest
-          - os: macos-latest
           - os: macos-latest
             version: dev
           - os: ubuntu-latest
             version: dev
-    #        include:
-    #          - os: windows-latest
-    #            binaryExtension: .exe
+        include:
+          - os: ubuntu-latest
+            executable-suffix: ''
+          - os: macos-latest
+            executable-suffix: ''
+          - os: windows-latest
+            executable-suffix: '.exe'
 
     steps:
       - uses: actions/checkout@v2
@@ -39,16 +50,14 @@ jobs:
         run: |
           mvn -Pnative package -DskipTests=true
 
-      - name: Upload binary ubuntu / macos
+      - name: Upload archive
         uses: actions/upload-artifact@v2
         with:
           name: demo-${{ matrix.os }}
-          path: target/demo
-          if: runner.os != 'Windows'
+          path: target/demo${{ matrix.executable-suffix }}
 
-      - name: Upload binary windows
-        uses: actions/upload-artifact@v2
-        with:
-          name: demo-${{ matrix.os }}
-          path: target/demo.exe
-          if: runner.os == 'Windows'
+      - name: Upload release
+        if: github.event.release.tag_name
+        run: gh release upload ${{ github.event.release.tag_name }} target/demo${{ matrix.executable-suffix }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
