@@ -9,8 +9,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        #        version: [latest, dev, '21.3.0']
-        version: [ latest ]
+        version: [ latest, dev, '21.3.0' ]
+        #        version: [ latest ]
         #        os: [ macos-latest, windows-latest, ubuntu-latest ]
         os: [ windows-latest ]
 
@@ -63,5 +63,5 @@ jobs:
         with:
           #          name: demoapplication-${{ matrix.os }}-${{ matrix.version }}
           name: demoapplication-${{ matrix.os }}
-#          path: target/com.example.demo.demoapplication*
+          #          path: target/com.example.demo.demoapplication*
           path: target/demo*
