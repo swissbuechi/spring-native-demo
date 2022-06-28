@@ -11,8 +11,8 @@ jobs:
       matrix:
         version: [ latest, dev, '21.3.0' ]
         #        version: [ latest ]
-        #        os: [ macos-latest, windows-latest, ubuntu-latest ]
-        os: [ windows-latest ]
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
+    #        os: [ windows-latest ]
 
     steps:
       - uses: actions/checkout@v2
@@ -36,11 +36,17 @@ jobs:
       #          docker ps -a
       - name: Build Native Image on Ubuntu and MacOs
         run: |
-          mvn clean package -DskipTests -Pspring-native,build-native-image
-          ./target/com.example.demo.demoapplication
+          mvn -Pnative package -DskipTests=true
+        #          mvn clean package -DskipTests -Pspring-native,build-native-image
+        #          ./target/com.example.demo.demoapplication
         #          ./target/com.example.demo.demoapplication &
         #          sleep 10
         #          mvn test -Pfunctional-test
+        if: runner.os != 'Windows'
+
+      - name: List Directory on Ubuntu and MacOs
+        run: |
+          ls .\target
         if: runner.os != 'Windows'
 
       - name: Build Native Image on Windows
