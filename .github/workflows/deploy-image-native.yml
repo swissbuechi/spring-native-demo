@@ -37,6 +37,12 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+#          flavor: |
+#            latest=false
+#            suffix=-native
+          tags: |
+            type=semver,pattern={{raw}},suffix=-native
+            type=raw,value=native
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
@@ -44,5 +50,5 @@ jobs:
           context: .
           file: ./Dockerfile-native
           push: true
-          tags: ${{ steps.meta.outputs.tags }}-native
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
