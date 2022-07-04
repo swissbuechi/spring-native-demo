@@ -45,7 +45,7 @@ jobs:
         run: mvn -Pnative package -DskipTests=true
 
       - name: Upload archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: demo-${{ matrix.os }}
           path: target/${{ env.APP_NAME }}${{ matrix.executable-suffix }}
