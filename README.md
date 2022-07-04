@@ -21,13 +21,13 @@ Dockerfile best practices:
 
 ### JRE based image
 
-`ghcr.io/swissbuechi/spring-native-demo:main`
+`ghcr.io/swissbuechi/spring-native-demo:latest`
 
 Build with `eclipse-temurin` JVM to minimize RAM usage
 
 ### Spring Native based image
 
-`ghcr.io/swissbuechi/spring-native-demo:main-native`
+`ghcr.io/swissbuechi/spring-native-demo:native`
 
 ## Run Demo
 

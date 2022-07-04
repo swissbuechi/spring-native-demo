@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   spring-native:
-    image: ghcr.io/swissbuechi/spring-native-demo:latest-native
+    image: ghcr.io/swissbuechi/spring-native-demo:native
     #    build:
     #      context: ./
     #      dockerfile: Dockerfile-native
