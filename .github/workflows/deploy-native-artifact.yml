@@ -6,7 +6,8 @@ on:
     types: [ published ]
 
 env:
-  APP_NAME: demo
+  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_TAG: ${{ github.ref }}
 
 jobs:
   build:
@@ -17,15 +18,15 @@ jobs:
         include:
           - os: ubuntu-latest
             graalvm_version: latest
-            asset_name: -linux-amd64
+            asset_name: linux-amd64
             executable-suffix: ''
           - os: macos-latest
             graalvm_version: latest
-            asset_name: -macos-amd64
+            asset_name: macos-amd64
             executable-suffix: ''
           - os: windows-latest
             graalvm_version: dev
-            asset_name: -windows-amd64
+            asset_name: windows-amd64
             executable-suffix: '.exe'
 
     steps:
@@ -48,12 +49,12 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: demo-${{ matrix.os }}
-          path: target/${{ env.APP_NAME }}${{ matrix.executable-suffix }}
+          path: target/app${{ matrix.executable-suffix }}
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/${{ env.APP_NAME }}${{ matrix.executable-suffix }}
-          asset_name: ${{ env.APP_NAME }}${{ matrix.asset_name }}
-          tag: ${{ github.ref }}
+          file: target/app${{ matrix.executable-suffix }}
+          asset_name: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}-${{ matrix.asset_name }}
+          tag: ${{ env.IMAGE_TAG }}
