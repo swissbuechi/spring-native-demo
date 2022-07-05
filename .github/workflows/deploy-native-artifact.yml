@@ -5,10 +5,6 @@ on:
   release:
     types: [ published ]
 
-env:
-  IMAGE_NAME: ${{ github.repository }}
-  IMAGE_TAG: ${{ github.ref }}
-
 jobs:
   build:
     name: graalvm ${{ matrix.graalvm_version }} on ${{ matrix.os }}
@@ -48,7 +44,7 @@ jobs:
       - name: Upload archive
         uses: actions/upload-artifact@v3
         with:
-          name: demo-${{ matrix.os }}
+          name: ${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.asset_name }}
           path: target/app${{ matrix.executable-suffix }}
 
       - name: Upload binaries to release
@@ -56,5 +52,5 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: target/app${{ matrix.executable-suffix }}
-          asset_name: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}-${{ matrix.asset_name }}
-          tag: ${{ env.IMAGE_TAG }}
+          asset_name: ${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.asset_name }}
+          tag: ${{ github.ref }}
