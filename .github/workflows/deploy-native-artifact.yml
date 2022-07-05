@@ -44,7 +44,7 @@ jobs:
       - name: Upload archive
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.asset_name }}
+          name: ${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.asset_name }}${{ matrix.executable-suffix }}
           path: target/app${{ matrix.executable-suffix }}
 
       - name: Upload binaries to release
@@ -52,5 +52,5 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: target/app${{ matrix.executable-suffix }}
-          asset_name: ${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.asset_name }}
+          asset_name: ${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.asset_name }}${{ matrix.executable-suffix }}
           tag: ${{ github.ref }}
