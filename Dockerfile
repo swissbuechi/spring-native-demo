@@ -4,7 +4,7 @@ WORKDIR /app
 RUN rm -rf src/main/resources/application.properties
 RUN mvn clean package -DskipTests=true
 
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:18-jre-alpine
 LABEL maintainer="github.com/swissbuechi"
 WORKDIR /app
 ENV TZ=Europe/Zurich
