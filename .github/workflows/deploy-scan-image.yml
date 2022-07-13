@@ -37,12 +37,12 @@ jobs:
         with:
           context: .
           load: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
       - name: Scan Docker image
         uses: Azure/container-scan@v0
         with:
-          image-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test
+          image-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
       - name: Push Docker image
         uses: docker/build-push-action@v3
