@@ -1,0 +1,5 @@
+general:
+  #vulnerabilities:
+  bestPracticeViolations:
+    - DKL-DI-0006
+#    - CIS-DI-0006
