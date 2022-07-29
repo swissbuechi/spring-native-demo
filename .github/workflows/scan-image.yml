@@ -6,7 +6,7 @@ on:
     types: [ published ]
 
 permissions:
-  contents: none
+  contents: read
 
 env:
   REGISTRY: ghcr.io
