@@ -67,9 +67,9 @@ Ubuntu
 ### Native
 - Startup: 0.059s
 - RAM: ~28MB
-- Image size: 167.3MB
+- Image size: 189.6MB
 
 ### JRE
 - Startup: 1.964s
 - RAM: ~80MB
-- Image size: 166.1MB
+- Image size: 78.6MB
