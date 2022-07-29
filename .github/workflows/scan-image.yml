@@ -11,7 +11,7 @@ permissions:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-#  DOCKLE_HOST: "unix:///var/run/docker.sock"
+  IMAGE_TAG: latest
   DOCKER_CONTENT_TRUST: 1
 
 jobs:
@@ -19,12 +19,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Scan Docker image
         uses: Azure/container-scan@v0
         with:
-          image-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          image-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
