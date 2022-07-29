@@ -12,12 +12,13 @@ A sample project to publish a Spring Native docker image with a GitHub action.
 
 ## Images
 
-Dockerfile best practices:
+Dockerfile best-practices:
 
 - Minimal packages
 - Separate user
 - Fixed versions
-- Healthchecks
+- Health-checks
+- Best-practice and Vulnerability scans provided by [Azure/container-scan](https://github.com/azure/container-scan/)
 
 ### JRE based image
 

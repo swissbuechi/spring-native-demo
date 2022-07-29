@@ -8,8 +8,6 @@ services:
     container_name: spring-native
     environment:
       - test.name=peter
-    healthcheck:
-      test: curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1
     ports:
       - "8080:8080"
   spring-native-jre:
@@ -19,7 +17,5 @@ services:
     container_name: spring-native-jre
     environment:
       - test.name=peter
-    healthcheck:
-      test: curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1
     ports:
       - "8081:8080"
