@@ -10,7 +10,7 @@ RUN mvn --version
 RUN rm -rf src/main/resources/application.properties
 RUN mvn -Pnative package -DskipTests=true
 
-FROM oraclelinux:8-slim
+FROM oraclelinux:9-slim
 LABEL maintainer="github.com/swissbuechi"
 ENV TZ=Europe/Zurich
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
