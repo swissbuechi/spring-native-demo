@@ -18,4 +18,5 @@ USER app
 
 COPY --from=build /app/target/app.jar app.jar
 EXPOSE 8080
+HEALTHCHECK CMD curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1
 ENTRYPOINT [ "java","-XX:+UseSerialGC","-Xss512k","-XX:MaxRAM=150m","-Djava.security.egd=file:/dev/./urandom", "-jar", "./app.jar" ]
