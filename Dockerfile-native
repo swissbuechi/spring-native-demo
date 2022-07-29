@@ -10,17 +10,19 @@ RUN mvn --version
 RUN rm -rf src/main/resources/application.properties
 RUN mvn -Pnative package -DskipTests=true
 
-FROM oraclelinux:9-slim
+FROM alpine:3
 LABEL maintainer="github.com/swissbuechi"
 ENV TZ=Europe/Zurich
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 WORKDIR /app
 
-RUN groupadd --gid 1000 app && adduser --uid 1000 -g app app
+RUN apk add --no-cache gcompat curl
+
+RUN addgroup --gid 1000 -S app && adduser --uid 1000 -S app -G app
 RUN chown -R app:app /app
 USER app
 
 COPY --from=build /build/target/app app
-HEALTHCHECK CMD curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1
 ENTRYPOINT [ "sh", "-c", "./app" ]
+HEALTHCHECK CMD curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1
