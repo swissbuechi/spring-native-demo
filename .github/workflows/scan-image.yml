@@ -2,21 +2,24 @@ name: Scan Docker image
 
 on:
   workflow_dispatch:
-  release:
-    types: [ published ]
-
-permissions:
-  contents: read
+  workflow_run:
+    workflows: [ "Docker image", "Docker image native" ]
+    types:
+      - completed
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  IMAGE_TAG: latest
   DOCKER_CONTENT_TRUST: 1
 
 jobs:
   scan-docker-image:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        image_tag: [ "latest", "latest-native" ]
 
     steps:
       - name: Checkout repository
@@ -25,6 +28,6 @@ jobs:
       - name: Scan Docker image
         uses: Azure/container-scan@v0
         with:
-          image-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          image-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.image_tag }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
