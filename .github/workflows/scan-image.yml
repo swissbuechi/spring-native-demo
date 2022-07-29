@@ -11,6 +11,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   DOCKER_CONTENT_TRUST: 1
+  DOCKLE_HOST: "unix:///var/run/docker.sock"
 
 jobs:
   scan-docker-image:
