@@ -1,4 +1,4 @@
-FROM softinstigate/graalvm-maven as build
+FROM ghcr.io/softinstigate/graalvm-maven-docker:22.2.r17-grl as build
 
 ADD . /build
 WORKDIR /build
