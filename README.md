@@ -5,7 +5,7 @@ A sample project to publish a Spring Native docker image with a GitHub action.
 ## Versions
 
 - Java 17
-- GraalVM: 22.1.0.r17-grl
+- GraalVM: 22.2.r17-grl
 - Spring Boot 2.7.2
 - Spring Native 0.12.1
 
