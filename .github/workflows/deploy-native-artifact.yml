@@ -21,7 +21,7 @@ jobs:
             asset_name: macos-amd64
             executable-suffix: ''
           - os: windows-latest
-            graalvm_version: dev
+            graalvm_version: latest
             asset_name: windows-amd64
             executable-suffix: '.exe'
 
