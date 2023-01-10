@@ -10,9 +10,9 @@ WORKDIR /app
 ENV TZ=Europe/Zurich
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apk --no-cache add curl
+RUN apt-get install curl -y
 
-RUN addgroup --gid 1000 -S app && adduser --uid 1000 -S app -G app
+RUN useradd --uid 1000 --user-group app
 RUN chown -R app:app /app
 USER app
 
