@@ -1,10 +1,10 @@
 FROM vegardit/graalvm-maven:latest-java17 as build
 
-ADD . /build
-WORKDIR /build
+ADD . /app
+WORKDIR /app
 
 RUN rm -rf src/main/resources/application.properties
-RUN mvn -Pnative spring-boot:build-image -DskipTests=true
+RUN mvn -Pnative native:compile -DskipTests=true
 
 FROM alpine:3
 LABEL maintainer="github.com/swissbuechi"
@@ -19,6 +19,6 @@ RUN addgroup --gid 1000 -S app && adduser --uid 1000 -S app -G app
 RUN chown -R app:app /app
 USER app
 
-COPY --from=build /build/target/app app
+COPY --from=build /app/target/app app
 ENTRYPOINT [ "sh", "-c", "./app" ]
 HEALTHCHECK CMD curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1
