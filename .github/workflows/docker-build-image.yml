@@ -1,8 +1,9 @@
-name: Build Docker image
+name: Docker image build and push
 
 on:
   release:
-    types: [ published ]
+    types: [published]
+  push:
 
 permissions:
   contents: read
@@ -10,8 +11,8 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-
   IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   build:
     name: Build Docker image ${{ matrix.type }}
@@ -52,6 +53,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          push: ${{ github.event_name == 'release' }}
           file: ${{ matrix.dockerfile }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

@@ -1,12 +1,12 @@
-name: Build binary artifacts
+name: Artifacts native build and upload
 
 on:
   release:
-    types: [ published ]
+    types: [published]
 
 jobs:
   build:
-    name: Build binary ${{ matrix.asset_name }} on ${{ matrix.os }}
+    name: Build artifact ${{ matrix.asset_name }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -33,10 +33,10 @@ jobs:
           components: native-image
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build native binary
+      - name: Build artifact
         run: mvn -Pnative native:compile -DskipTests=true
 
-      - name: Upload binaries to release
+      - name: Upload artifact to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
