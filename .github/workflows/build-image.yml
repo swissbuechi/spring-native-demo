@@ -1,7 +1,8 @@
 name: Build Docker image
 
 on:
-  push:
+  release:
+    types: [ published ]
 
 permissions:
   contents: read
@@ -52,6 +53,5 @@ jobs:
         with:
           context: .
           file: ${{ matrix.dockerfile }}
-          push: github.ref == 'refs/heads/master'
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
