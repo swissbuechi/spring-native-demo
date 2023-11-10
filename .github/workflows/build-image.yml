@@ -20,8 +20,13 @@ jobs:
         include:
           - type: jre
             dockerfile: Dockerfile
+            latest: true
           - type: native
             dockerfile: Dockerfile-native
+            latest: false
+            tags: |
+              type=semver,pattern={{raw}},suffix=-native
+              type=raw,value=native
 
     steps:
       - name: Checkout repository
@@ -34,24 +39,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker (jre)
-        if: matrix.type == 'jre'
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
-      - name: Extract metadata (tags, labels) for Docker (native)
-        if: matrix.type == 'native'
+      - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           flavor: |
-            latest=false
-          tags: |
-            type=semver,pattern={{raw}},suffix=-native
-            type=raw,value=native
+            latest=${{ matrix.latest }}
+          tags: ${{ matrix.tags }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5

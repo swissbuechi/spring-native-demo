@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build binary artifacts for ${{ asset_name }} on ${{ matrix.os }}
+    name: Build binary artifacts for ${{ matrix.asset_name }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
