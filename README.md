@@ -5,10 +5,7 @@ A sample project to publish a Spring Native docker image with a GitHub action.
 ## Versions
 
 - Java 17
-- GraalVM: 22.2.r17-grl
-- Spring Boot 2.7.2
-- Spring Native 0.12.1
-
+- Spring Boot 3
 
 ## Images
 
@@ -18,7 +15,7 @@ Dockerfile best-practices:
 - Separate user
 - Fixed versions
 - Health-checks
-- Best-practice and Vulnerability scans provided by [Azure/container-scan](https://github.com/azure/container-scan/)
+- ~~Best-practice and Vulnerability scans provided by [Azure/container-scan](https://github.com/azure/container-scan/)~~
 
 ### JRE based image
 
@@ -41,8 +38,8 @@ Build with `eclipse-temurin` JVM to minimize RAM usage
 
 #### Docker
 
-1. Copy `docker-compose.yml` file
-2. Run `docker-compose up -d`
+1. Download `compose.yml` file
+2. Run `docker compose up`
 
 #### Binary
 

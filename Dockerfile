@@ -4,15 +4,15 @@ WORKDIR /app
 RUN rm -rf src/main/resources/application.properties
 RUN mvn clean package -DskipTests=true
 
-FROM ibm-semeru-runtimes:open-17-jre
+FROM eclipse-temurin:17-jre-alpine
 LABEL maintainer="github.com/swissbuechi"
 WORKDIR /app
 ENV TZ=Europe/Zurich
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get install curl -y
+RUN apk --no-cache add curl
 
-RUN useradd --uid 1000 --user-group app
+RUN addgroup --gid 1000 -S app && adduser --uid 1000 -S app -G app
 RUN chown -R app:app /app
 USER app
 
