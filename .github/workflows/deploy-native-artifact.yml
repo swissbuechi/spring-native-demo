@@ -37,12 +37,6 @@ jobs:
       - name: Build native binary
         run: mvn -Pnative native:compile -DskipTests=true
 
-      - name: Upload archive
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.asset_name }}${{ matrix.executable-suffix }}
-          path: target/app${{ matrix.executable-suffix }}
-
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
