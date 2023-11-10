@@ -20,10 +20,10 @@ jobs:
         include:
           - type: jre
             dockerfile: Dockerfile
-            latest: true
+            latest: latest=true
           - type: native
             dockerfile: Dockerfile-native
-            latest: false
+            latest: latest=false
             tags: |
               type=semver,pattern={{raw}},suffix=-native
               type=raw,value=native
@@ -44,8 +44,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          flavor: |
-            latest=${{ matrix.latest }}
+          flavor: ${{ matrix.latest }}
           tags: ${{ matrix.tags }}
 
       - name: Build and push Docker image
