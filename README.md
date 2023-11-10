@@ -21,7 +21,7 @@ Dockerfile best-practices:
 
 `ghcr.io/swissbuechi/spring-native-demo:latest`
 
-Build with `eclipse-temurin` JVM to minimize RAM usage
+Built with `eclipse-temurin` JVM to minimize RAM usage
 
 ### Spring Native based image
 
@@ -32,7 +32,6 @@ Build with `eclipse-temurin` JVM to minimize RAM usage
 ### Requirements
 
 - Docker
-- docker-compose
 
 ### Steps
 
@@ -41,13 +40,13 @@ Build with `eclipse-temurin` JVM to minimize RAM usage
 1. Download `compose.yml` file
 2. Run `docker compose up`
 
-#### Binary
+#### Artifact native
 
 Ubuntu
 
 1. Download Artifact
-2. chmod +x ./demo
-3. ./demo -Dspring.config.location=<path to application.properties>
+2. `chmod +x ./<app>`
+3. `./<app> -Dspring.config.location=<path to application.properties>`
 
 ### Test
 
@@ -64,9 +63,9 @@ Ubuntu
 ### Native
 - Startup: 0.059s
 - RAM: ~28MB
-- Image size: 189.6MB
+- Image size: 76 MB
 
 ### JRE
 - Startup: 1.964s
 - RAM: ~80MB
-- Image size: 78.6MB
+- Image size: 201 MB

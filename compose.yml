@@ -1,5 +1,6 @@
 services:
   spring-native:
+    platform: linux/amd64
     image: ghcr.io/swissbuechi/spring-native-demo:native
     #    build:
     #      context: ./
@@ -10,6 +11,7 @@ services:
     ports:
       - "8080:8080"
   spring-native-jre:
+    platform: linux/amd64
     image: ghcr.io/swissbuechi/spring-native-demo:latest
 #    build:
 #      context: ./
@@ -17,4 +19,4 @@ services:
     environment:
       - test.name=peter
     ports:
-      - "8082:8080"
+      - "8081:8080"
