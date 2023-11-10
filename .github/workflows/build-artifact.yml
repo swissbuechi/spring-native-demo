@@ -1,7 +1,6 @@
 name: Build binary artifacts
 
 on:
-  workflow_dispatch:
   release:
     types: [ published ]
 
@@ -24,7 +23,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Setup GraalVM
         uses: graalvm/setup-graalvm@v1
