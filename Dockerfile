@@ -4,7 +4,7 @@ WORKDIR /app
 RUN rm -rf src/main/resources/application.properties
 RUN mvn clean package -DskipTests=true
 
-FROM ibm-semeru-runtimes:open-17-jre
+FROM ibm-semeru-runtimes:open-20-jre
 LABEL maintainer="github.com/swissbuechi"
 WORKDIR /app
 ENV TZ=Europe/Zurich
