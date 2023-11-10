@@ -1,4 +1,4 @@
-FROM maven:3-openjdk-17-slim as build
+FROM maven:3-openjdk-18-slim as build
 ADD . /app
 WORKDIR /app
 RUN rm -rf src/main/resources/application.properties
