@@ -15,5 +15,5 @@ updates:
     ignore:
       - dependency-name: "eclipse-temurin"
         update-types: [ "version-update:semver-major" ]
-      - dependency-name: "ibm-semeru-runtimes"
+      - dependency-name: "maven"
         update-types: [ "version-update:semver-major" ]
