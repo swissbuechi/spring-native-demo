@@ -3,7 +3,6 @@ name: Docker image build and push
 on:
   release:
     types: [published]
-  push:
 
 permissions:
   contents: read
@@ -53,7 +52,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: ${{ github.event_name == 'release' }}
+          push: true
           file: ${{ matrix.dockerfile }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
