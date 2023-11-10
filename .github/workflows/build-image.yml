@@ -13,6 +13,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 jobs:
   build:
+    name: Build Docker image ${{ matrix.type }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
